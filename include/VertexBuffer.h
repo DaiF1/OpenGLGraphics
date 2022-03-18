@@ -17,6 +17,8 @@ private:
     unsigned int m_vbo;
     unsigned int m_ebo;
 
+    unsigned int m_nbElements;
+
 public:
     VertexBuffer(std::vector<Vertex> vertices, 
             std::vector<int> triangles, bool staticDraw=true);
@@ -24,4 +26,5 @@ public:
     void Bind();
     void Unbind();
     void Destroy();
+    void Draw();
 };

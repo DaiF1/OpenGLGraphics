@@ -28,6 +28,8 @@ VertexBuffer::VertexBuffer(std::vector<Vertex> vertices,
     glBufferData(GL_ELEMENT_ARRAY_BUFFER,
             sizeof(int)*triangles.size(), &triangles[0],
             (staticDraw) ? GL_STATIC_DRAW : GL_DYNAMIC_DRAW);
+
+    m_nbElements = triangles.size();
 }
 
 void VertexBuffer::Bind()
@@ -45,4 +47,11 @@ void VertexBuffer::Destroy()
     glDeleteBuffers(1, &m_vbo);
     glDeleteBuffers(1, &m_ebo);
     glDeleteVertexArrays(1, &m_vao);
+}
+
+void VertexBuffer::Draw()
+{
+    Bind();
+    glDrawElements(GL_TRIANGLES, m_nbElements, GL_UNSIGNED_INT, 0);
+    Unbind();
 }

@@ -49,11 +49,10 @@ int main(int argc, char **argv)
     if (window.Create() != WINDOW_OK)
         return -1;
 
-    glViewport(0, 0, 1280, 720);
     shader.compile();
     shader.bind();
 
-    VertexBuffer vb(starVertices, starElements);
+    VertexBuffer vb(squareVertices, squareElements);
 
     // Main Loop
     while (!window.ShouldClose())
@@ -69,8 +68,7 @@ int main(int argc, char **argv)
         if (Input::IsKeyPressed(KEY_ESCAPE))
             window.Close(); 
 
-        vb.Bind();
-        glDrawElements(GL_TRIANGLES, 24, GL_UNSIGNED_INT, 0);
+        vb.Draw();
     }
 
     vb.Destroy();
