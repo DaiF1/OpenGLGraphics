@@ -49,8 +49,8 @@ int main(int argc, char **argv)
     if (window.Create() != WINDOW_OK)
         return -1;
 
-    shader.compile();
     glViewport(0, 0, 1280, 720);
+    shader.compile();
     shader.bind();
 
     VertexBuffer vb(starVertices, starElements);

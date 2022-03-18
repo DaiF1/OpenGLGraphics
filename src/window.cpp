@@ -55,6 +55,7 @@ int Window::Create()
     if (glewInit() != GLEW_OK)
         std::cout << "[Error]: Failed to initialize GLEW" << std::endl;
     
+    glViewport(0, 0, 1280, 720);
     return 0;
 }
 
