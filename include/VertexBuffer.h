@@ -13,12 +13,11 @@ struct Vertex
 class VertexBuffer
 {
 private:
-public:
     unsigned int m_vao;
     unsigned int m_vbo;
     unsigned int m_ebo;
 
-
+public:
     VertexBuffer(std::vector<Vertex> vertices, 
             std::vector<int> triangles, bool staticDraw=true);
 
