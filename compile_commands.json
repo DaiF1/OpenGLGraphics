@@ -1,0 +1,182 @@
+[
+ {
+  "directory": "/home/daif/Documents/Graphics/OpenGL",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-g",
+   "-c",
+   "./src/main.cpp",
+   "-I",
+   "./include",
+   "-lglfw3",
+   "-lGL",
+   "-lGLU",
+   "-lGLEW",
+   "-lX11",
+   "-lXxf86vm",
+   "-lXrandr",
+   "-lpthread",
+   "-ldl",
+   "-lXi"
+  ],
+  "file": "./src/main.cpp"
+ },
+ {
+  "directory": "/home/daif/Documents/Graphics/OpenGL",
+  "arguments": [
+   "g++",
+   "-c",
+   "./src/window.cpp",
+   "-I",
+   "./include",
+   "-lglfw3",
+   "-lGL",
+   "-lGLU",
+   "-lGLEW",
+   "-lX11",
+   "-lXxf86vm",
+   "-lXrandr",
+   "-lpthread",
+   "-ldl",
+   "-lXi"
+  ],
+  "file": "./src/window.cpp"
+ },
+ {
+  "directory": "/home/daif/Documents/Graphics/OpenGL",
+  "arguments": [
+   "g++",
+   "-c",
+   "./src/input.cpp",
+   "-I",
+   "./include",
+   "-lglfw3",
+   "-lGL",
+   "-lGLU",
+   "-lGLEW",
+   "-lX11",
+   "-lXxf86vm",
+   "-lXrandr",
+   "-lpthread",
+   "-ldl",
+   "-lXi"
+  ],
+  "file": "./src/input.cpp"
+ },
+ {
+  "directory": "/home/daif/Documents/Graphics/OpenGL",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-g",
+   "-c",
+   "src/input.cpp",
+   "-I",
+   "./include",
+   "-lglfw3",
+   "-lGL",
+   "-lGLU",
+   "-lGLEW",
+   "-lX11",
+   "-lXxf86vm",
+   "-lXrandr",
+   "-lpthread",
+   "-ldl",
+   "-lXi"
+  ],
+  "file": "src/input.cpp"
+ },
+ {
+  "directory": "/home/daif/Documents/Graphics/OpenGL",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-g",
+   "-c",
+   "src/main.cpp",
+   "-I",
+   "./include",
+   "-lglfw3",
+   "-lGL",
+   "-lGLU",
+   "-lGLEW",
+   "-lX11",
+   "-lXxf86vm",
+   "-lXrandr",
+   "-lpthread",
+   "-ldl",
+   "-lXi"
+  ],
+  "file": "src/main.cpp"
+ },
+ {
+  "directory": "/home/daif/Documents/Graphics/OpenGL",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-g",
+   "-c",
+   "src/shader.cpp",
+   "-I",
+   "./include",
+   "-lglfw3",
+   "-lGL",
+   "-lGLU",
+   "-lGLEW",
+   "-lX11",
+   "-lXxf86vm",
+   "-lXrandr",
+   "-lpthread",
+   "-ldl",
+   "-lXi"
+  ],
+  "file": "src/shader.cpp"
+ },
+ {
+  "directory": "/home/daif/Documents/Graphics/OpenGL",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-g",
+   "-c",
+   "src/vertexbuffer.cpp",
+   "-I",
+   "./include",
+   "-lglfw3",
+   "-lGL",
+   "-lGLU",
+   "-lGLEW",
+   "-lX11",
+   "-lXxf86vm",
+   "-lXrandr",
+   "-lpthread",
+   "-ldl",
+   "-lXi"
+  ],
+  "file": "src/vertexbuffer.cpp"
+ },
+ {
+  "directory": "/home/daif/Documents/Graphics/OpenGL",
+  "arguments": [
+   "g++",
+   "-Wall",
+   "-g",
+   "-c",
+   "src/window.cpp",
+   "-I",
+   "./include",
+   "-lglfw3",
+   "-lGL",
+   "-lGLU",
+   "-lGLEW",
+   "-lX11",
+   "-lXxf86vm",
+   "-lXrandr",
+   "-lpthread",
+   "-ldl",
+   "-lXi"
+  ],
+  "file": "src/window.cpp"
+ }
+]
