@@ -1,2 +1,2 @@
 # OpenGLGraphics
-Creation of an Graphics Engine using OpenGL
+Creation of a Graphics Engine using OpenGL
