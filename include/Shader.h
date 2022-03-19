@@ -12,6 +12,8 @@ private:
     char *m_filePath;
     unsigned int m_Id;
 
+    const char *ParseFile(const char *path);
+
 public:
     ShaderType type;
 
