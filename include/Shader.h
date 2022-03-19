@@ -2,8 +2,8 @@
 
 enum ShaderType
 {
-    Vertex,
-    Fragment
+    VERTEX,
+    FRAGMENT
 };
 
 class Shader
