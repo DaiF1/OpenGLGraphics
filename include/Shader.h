@@ -15,6 +15,9 @@ private:
 public:
     ShaderType type;
 
+    Shader();
+    Shader(ShaderType type, const char *filePath);
+
     bool Load(ShaderType type, const char *filePath);
     void Destroy();
 };
