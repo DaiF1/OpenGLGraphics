@@ -20,9 +20,12 @@ private:
     unsigned int m_nbElements;
 
 public:
+    VertexBuffer();
     VertexBuffer(std::vector<Vertex> vertices, 
             std::vector<int> triangles, bool staticDraw=true);
 
+    void Load(std::vector<Vertex> vertices, 
+            std::vector<int> triangles, bool staticDraw=true);
     void Bind();
     void Unbind();
     void Destroy();

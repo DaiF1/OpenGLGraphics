@@ -2,7 +2,17 @@
 #include <cstddef>
 #include "VertexBuffer.h"
 
+VertexBuffer::VertexBuffer()
+{};
+
 VertexBuffer::VertexBuffer(std::vector<Vertex> vertices,
+        std::vector<int> triangles,
+        bool staticDraw)
+{
+    Load(vertices, triangles, staticDraw);
+}
+
+void VertexBuffer::Load(std::vector<Vertex> vertices,
         std::vector<int> triangles,
         bool staticDraw)
 {
