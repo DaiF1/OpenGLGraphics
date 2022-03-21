@@ -11,12 +11,12 @@ class Shader
 {
 private:
     char *m_filePath;
-    unsigned int m_Id;
 
     std::string ParseFile(const char *path);
 
 public:
     ShaderType type;
+    unsigned int id;
 
     Shader();
     Shader(ShaderType type, const char *filePath);
