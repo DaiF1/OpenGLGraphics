@@ -1,28 +1,6 @@
 #pragma once
 #include <string>
 
-enum ShaderType
-{
-    VERTEX,
-    FRAGMENT
-};
-
-class Shader
-{
-private:
-    char *m_filePath;
-
-public:
-    ShaderType type;
-    unsigned int id;
-
-    Shader();
-    Shader(ShaderType type, const char *filePath);
-
-    bool Load(ShaderType type, const char *filePath);
-    void Destroy();
-};
-
 class ShaderProgram
 {
 private:
