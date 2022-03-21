@@ -7,7 +7,7 @@
 
 #define GLEW_STATIC
 
-static Shader shader;
+static ShaderProgram shader;
 
 static std::vector<Vertex> squareVertices = {
 	//      Color                         Position
@@ -49,6 +49,8 @@ int main(int argc, char **argv)
     if (window.Create() != WINDOW_OK)
         return -1;
 
+    shader.Load("./src/shaders/basic.vert", "./src/shaders/basic.frag");
+    shader.Bind();
     VertexBuffer vb(squareVertices, squareElements);
 
     // Main Loop
@@ -68,6 +70,7 @@ int main(int argc, char **argv)
         vb.Draw();
     }
 
+    shader.Destroy();
     vb.Destroy();
     window.Destroy();
 }
