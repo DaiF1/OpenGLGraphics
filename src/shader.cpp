@@ -51,6 +51,14 @@ void Shader::Destroy()
     glDeleteShader(id);
 }
 
+ShaderProgram::ShaderProgram()
+{}
+
+ShaderProgram::ShaderProgram(const char *vertexFile, const char *fragmentFile)
+{
+    Load(vertexFile, fragmentFile);
+}
+
 bool ShaderProgram::Load(const char *vertexFile, const char *fragmentFile)
 {
     Shader vertex(ShaderType::VERTEX, vertexFile);   
@@ -85,4 +93,9 @@ void ShaderProgram::Bind()
 void ShaderProgram::Unbind()
 {
     glUseProgram(0);
+}
+
+void ShaderProgram::Destroy()
+{
+    glDeleteProgram(m_Id);
 }
