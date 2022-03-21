@@ -1,70 +1,88 @@
 #include "Shader.h"
 #include <GL/glew.h>
-#include <stdio.h>
+#include <iostream>
+#include <fstream>
 
-const char* vertexShaderSource = R"(
-#version 460 core
-layout (location = 0) in vec4 aColor;
-layout (location = 1) in vec3 aPosition;
-out vec4 fColor;
-void main()
-{
-fColor = aColor;
-gl_Position = vec4(aPosition, 1.0);
-})";
+Shader::Shader()
+{}
 
-const char* fragmentShaderSource = R"(
-#version 460 core
-out vec4 FragColor;
-in vec4 fColor;
-void main()
+Shader::Shader(ShaderType type, const char *filePath)
 {
-FragColor = fColor;
-})";
-
-void Shader::compile()
-{
-    // Adapted from https://learnopengl.com/code_viewer_gh.php?code=src/1.getting_started/2.2.hello_triangle_indexed/hello_triangle_indexed.cpp
-    unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-    glCompileShader(vertexShader);
-    // check for shader compile errors
-    int success;
-    char infoLog[512];
-    glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
-    if (!success)
-    {
-        glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-        printf("ERROR::SHADER::VERTEX::COMPILATION_FAILED\n '%s'", infoLog);
-    }
-    // fragment shader
-    unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
-    glCompileShader(fragmentShader);
-    // check for shader compile errors
-    glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
-    if (!success)
-    {
-        glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
-        printf("ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n '%s'", infoLog);
-    }
-    // link shaders
-    programId = glCreateProgram();
-    glAttachShader(programId, vertexShader);
-    glAttachShader(programId, fragmentShader);
-    glLinkProgram(programId);
-    // check for linking errors
-    glGetProgramiv(programId, GL_LINK_STATUS, &success);
-    if (!success)
-    {
-        glGetProgramInfoLog(programId, 512, NULL, infoLog);
-        printf("ERROR::SHADER::PROGRAM::LINKING_FAILED\n '%s'", infoLog);
-    }
-    glDeleteShader(vertexShader);
-    glDeleteShader(fragmentShader);
+    Load(type, filePath);
 }
 
-void Shader::bind()
+std::string Shader::ParseFile(const char *path)
 {
-    glUseProgram(programId);
+    std::ifstream file(path);
+    std::string str((std::istreambuf_iterator<char>(file)), 
+            std::istreambuf_iterator<char>());
+    return str;
+}
+
+bool Shader::Load(ShaderType type, const char *filePath)
+{
+    GLenum t = (type == ShaderType::VERTEX) ? 
+        GL_VERTEX_SHADER : GL_FRAGMENT_SHADER;
+
+    const char *content = ParseFile(filePath).c_str();
+
+    id = glCreateShader(t);
+    glShaderSource(id, 1, &content, NULL);
+    glCompileShader(id);
+
+    int success;
+    char infoLog[512];
+    glGetShaderiv(id, GL_COMPILE_STATUS, &success);
+    if (!success)
+    {
+        const char *stype = (type == ShaderType::VERTEX) ? 
+            "Vertex" : "Fragment";
+        glGetShaderInfoLog(id, 512, NULL, infoLog);
+        std::cout << "[Error] Failed to Compile " << stype <<
+            " Shader:\n" << infoLog << std::endl;
+        return false;
+    }
+
+    return true;
+}
+
+void Shader::Destroy()
+{
+    glDeleteShader(id);
+}
+
+bool ShaderProgram::Load(const char *vertexFile, const char *fragmentFile)
+{
+    Shader vertex(ShaderType::VERTEX, vertexFile);   
+    Shader fragment(ShaderType::FRAGMENT, fragmentFile);
+
+    m_Id = glCreateProgram();
+    glAttachShader(m_Id, vertex.id);
+    glAttachShader(m_Id, fragment.id);
+    glLinkProgram(m_Id);
+
+    int success;
+    char infoLog[512];
+    glGetProgramiv(m_Id, GL_LINK_STATUS, &success);
+    if (!success)
+    {
+        glGetShaderInfoLog(m_Id, 512, NULL, infoLog);
+        std::cout << "[Error] Failed to Link Shaders:\n" << 
+            infoLog << std::endl;
+        return false;
+    }
+
+    vertex.Destroy();
+    fragment.Destroy();
+    return true;
+}
+
+void ShaderProgram::Bind()
+{
+    glUseProgram(m_Id);
+}
+
+void ShaderProgram::Unbind()
+{
+    glUseProgram(0);
 }
