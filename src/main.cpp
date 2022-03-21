@@ -49,9 +49,6 @@ int main(int argc, char **argv)
     if (window.Create() != WINDOW_OK)
         return -1;
 
-    shader.compile();
-    shader.bind();
-
     VertexBuffer vb(squareVertices, squareElements);
 
     // Main Loop
