@@ -12,8 +12,6 @@ class Shader
 private:
     char *m_filePath;
 
-    std::string ParseFile(const char *path);
-
 public:
     ShaderType type;
     unsigned int id;
