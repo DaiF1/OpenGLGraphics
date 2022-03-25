@@ -9,8 +9,6 @@
 
 static ShaderProgram shader;
 
-glm::vec2 res(1280, 720);
-
 static std::vector<Vertex> squareVertices = {
 	//      Color                         Position
 	Vertex{{0.9f,  0.1f, 0.12f, 1.0f},   {-1.f, -1.f, 1.0f}},
@@ -71,7 +69,9 @@ int main(int argc, char **argv)
         if (Input::IsKeyPressed(KEY_ESCAPE))
             window.Close();
 
-        glm::vec2 pos(Input::mousePosition.x, res.y - Input::mousePosition.y);
+        glm::vec2 res(window.GetScreenResolution());
+        glm::vec2 pos(Input::mousePosition.x, 
+                res.y - Input::mousePosition.y);
 
         shader.PassFloat(dt, "u_time"); 
         shader.PassVec2(pos, "u_mouse");

@@ -2,6 +2,9 @@
 #include "Input.h"
 #include <GLFW/glfw3.h>
 
+int Window::m_width = 1280;
+int Window::m_height = 720;
+
 Window::Window()
 {
 
@@ -48,6 +51,7 @@ int Window::Create()
 
     glfwSetKeyCallback(m_Window, Input::KeyCallback);
     glfwSetCursorPosCallback(m_Window, Input::CursorCallback);
+    glfwSetWindowSizeCallback(m_Window, Window::WindowCallback);
 
     glfwMakeContextCurrent(m_Window);
 
@@ -103,4 +107,17 @@ void Window::SetFullScreen(bool full)
 
     glfwSetWindowMonitor(m_Window, monitor,
             0, 0, mode->width, mode->height, GL_DONT_CARE);
+}
+
+void Window::WindowCallback(GLFWwindow *window, int width, int height)
+{
+    glViewport(0, 0, width, height);
+    m_width = width;
+    m_height = height;
+}
+
+glm::vec2 Window::GetScreenResolution() const
+{
+    glm::vec2 result(m_width, m_height);
+    return result;
 }

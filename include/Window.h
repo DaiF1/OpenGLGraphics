@@ -2,6 +2,7 @@
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <glm/vec2.hpp>>
 
 #include <iostream>
 
@@ -12,6 +13,10 @@ class Window
 private:
     bool m_FullScreen = false;
     GLFWwindow *m_Window = nullptr;
+
+    static int m_width, m_height;
+
+    static void WindowCallback(GLFWwindow *window, int width, int height);
 
 public:
     // Constructor
@@ -27,6 +32,8 @@ public:
 
     bool IsFullScreen();
     void SetFullScreen(bool full);
+
+    glm::vec2 GetScreenResolution() const;
 };
 
 static Window window;
