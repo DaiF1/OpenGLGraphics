@@ -2,6 +2,11 @@
 #include <GL/glew.h>
 #include <iostream>
 #include <fstream>
+#include <glm/vec2.hpp>
+#include <glm/vec3.hpp>
+#include <glm/vec4.hpp>
+#include <glm/matrix.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 ShaderProgram::ShaderProgram()
 {}
@@ -67,19 +72,78 @@ bool ShaderProgram::Load(const char *vertexFile, const char *fragmentFile)
     }
     glDeleteShader(vertexId);
     glDeleteShader(fragmentId);
+    
+    glUseProgram(m_Id);
+    glGenBuffers(1, &m_ubo);
+    glBindBuffer(GL_UNIFORM_BUFFER, m_ubo);
+    glBufferData(GL_UNIFORM_BUFFER, 152, NULL, GL_STATIC_DRAW);
+    glBindBuffer(GL_UNIFORM_BUFFER, 0);
+    glUseProgram(0);
 }
 
 void ShaderProgram::Bind()
 {
     glUseProgram(m_Id);
+    glBindBuffer(GL_UNIFORM_BUFFER, m_ubo);
 }
 
 void ShaderProgram::Unbind()
 {
+    glBindBuffer(GL_UNIFORM_BUFFER, 0);
     glUseProgram(0);
 }
 
 void ShaderProgram::Destroy()
 {
     glDeleteProgram(m_Id);
+}
+
+void ShaderProgram::PassFloat(float value, const char *name)
+{
+    glUniform1f(glGetUniformLocation(m_Id, name), value);
+}
+
+void ShaderProgram::PassInt(int value, const char *name)
+{
+    glUniform1i(glGetUniformLocation(m_Id, name), value);
+}
+
+void ShaderProgram::PassVec2(glm::vec2 &value, const char *name)
+{
+    glUniform2fv(glGetUniformLocation(m_Id, name), 1, glm::value_ptr(value));
+}
+
+void ShaderProgram::PassVec3(glm::vec3 &value, const char *name)
+{
+    glUniform3fv(glGetUniformLocation(m_Id, name), 1, glm::value_ptr(value));
+}
+
+void ShaderProgram::PassVec4(glm::vec4 &value, const char *name)
+{
+    glUniform4fv(glGetUniformLocation(m_Id, name), 1, glm::value_ptr(value));
+}
+
+void ShaderProgram::PassIVec2(glm::ivec2 &value, const char *name)
+{
+    glUniform2iv(glGetUniformLocation(m_Id, name), 1, glm::value_ptr(value));
+}
+
+void ShaderProgram::PassIVec3(glm::ivec3 &value, const char *name)
+{
+    glUniform3iv(glGetUniformLocation(m_Id, name), 1, glm::value_ptr(value));
+}
+
+void ShaderProgram::PassIVec4(glm::ivec4 &value, const char *name)
+{
+    glUniform4iv(glGetUniformLocation(m_Id, name), 1, glm::value_ptr(value));
+}
+
+void ShaderProgram::PassMat3(glm::mat3 &value, const char *name)
+{
+    glUniformMatrix3fv(glGetUniformLocation(m_Id, name), 1, GL_FALSE, glm::value_ptr(value));
+}
+
+void ShaderProgram::PassMat4(glm::mat4 &value, const char *name)
+{
+    glUniformMatrix4fv(glGetUniformLocation(m_Id, name), 1, GL_FALSE, glm::value_ptr(value));
 }

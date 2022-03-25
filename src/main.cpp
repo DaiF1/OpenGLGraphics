@@ -9,12 +9,14 @@
 
 static ShaderProgram shader;
 
+glm::vec2 res(1280, 720);
+
 static std::vector<Vertex> squareVertices = {
 	//      Color                         Position
-	Vertex{{0.9f,  0.1f, 0.12f, 1.0f},   {-0.5f, -0.5f, 0.0f}},
-	Vertex{{0.1f,  0.9f, 0.12f, 1.0f},   {-0.5f,  0.5f, 0.0f}},
-	Vertex{{0.12f, 0.9f, 0.1f,  1.0f},   { 0.5f,  0.5f, 0.0f}},
-	Vertex{{0.12f, 0.1f, 0.9f,  1.0f},   { 0.5f, -0.5f, 0.0f}}
+	Vertex{{0.9f,  0.1f, 0.12f, 1.0f},   {-1.f, -1.f, 1.0f}},
+	Vertex{{0.1f,  0.9f, 0.12f, 1.0f},   {-1.f,  1.f, 1.0f}},
+	Vertex{{0.12f, 0.9f, 0.1f,  1.0f},   { 1.f,  1.f, 0.0f}},
+	Vertex{{0.12f, 0.1f, 0.9f,  1.0f},   { 1.f, -1.f, 0.0f}}
 };
 
 static std::vector<int> squareElements = {
@@ -53,6 +55,8 @@ int main(int argc, char **argv)
     shader.Bind();
     VertexBuffer vb(squareVertices, squareElements);
 
+    float dt = 0.0f;
+
     // Main Loop
     while (!window.ShouldClose())
     {
@@ -65,9 +69,16 @@ int main(int argc, char **argv)
         }
 
         if (Input::IsKeyPressed(KEY_ESCAPE))
-            window.Close(); 
+            window.Close();
 
+        glm::vec2 pos(Input::mousePosition.x, res.y - Input::mousePosition.y);
+
+        shader.PassFloat(dt, "u_time"); 
+        shader.PassVec2(pos, "u_mouse");
+        shader.PassVec2(res, "u_resolution");
         vb.Draw();
+
+        dt += 0.016667;
     }
 
     shader.Destroy();
