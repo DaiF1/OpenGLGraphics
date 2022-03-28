@@ -6,7 +6,6 @@ class ShaderProgram
 {
 private:
     unsigned int m_Id;
-    unsigned int m_ubo;
 
 public:
     ShaderProgram();

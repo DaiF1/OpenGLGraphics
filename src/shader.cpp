@@ -72,24 +72,15 @@ bool ShaderProgram::Load(const char *vertexFile, const char *fragmentFile)
     }
     glDeleteShader(vertexId);
     glDeleteShader(fragmentId);
-    
-    glUseProgram(m_Id);
-    glGenBuffers(1, &m_ubo);
-    glBindBuffer(GL_UNIFORM_BUFFER, m_ubo);
-    glBufferData(GL_UNIFORM_BUFFER, 152, NULL, GL_STATIC_DRAW);
-    glBindBuffer(GL_UNIFORM_BUFFER, 0);
-    glUseProgram(0);
 }
 
 void ShaderProgram::Bind()
 {
     glUseProgram(m_Id);
-    glBindBuffer(GL_UNIFORM_BUFFER, m_ubo);
 }
 
 void ShaderProgram::Unbind()
 {
-    glBindBuffer(GL_UNIFORM_BUFFER, 0);
     glUseProgram(0);
 }
 
